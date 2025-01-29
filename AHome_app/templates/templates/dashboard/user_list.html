@@ -1,0 +1,90 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+
+<a id="back-btn" href="{% url 'dashboard-home' %}">Back</a>
+<div class="container mt-5">
+    <h2 class="text-center">User List</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="alert alert-info" role="alert">
+                <strong>Total Accounts:</strong> {{ total_users }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-success" role="alert">
+                <strong>Active Users:</strong> {{ active_users }}
+            </div>
+        </div>
+    </div>
+    
+    {% if users %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.is_moderator %}
+                                <span class="badge bg-info">Moderator</span>
+                            {% else %}
+                                <span class="badge bg-secondary">User</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user != request.user and not user.is_moderator %}
+                                <a href="{% url 'moderator-user-delete' user.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                            {% elif user == request.user %}
+                                <span class="text-muted">(You)</span>
+                            {% else %}
+                                <span class="text-muted">Cannot delete</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if users.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ users.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page_num in users.paginator.page_range %}
+                    <li class="page-item {% if users.number == page_num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if users.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ users.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <p class="text-center text-muted">No users found.</p>
+    {% endif %}
+</div>
+{% endblock %}

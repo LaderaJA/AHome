@@ -1,0 +1,79 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Your Profile</h1>
+    <div class="card">
+        <div class="card-header text-center">
+            <h2>{{ user.username }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px;">
+                    {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture" class="img-thumbnail" style="max-width: 200px;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    {% if request.user.is_authenticated and request.user != user %}
+                    {% if is_following %}
+                        <form method="POST" action="{% url 'unfollow-user' pk=user.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Unfollow</button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'follow-user' pk=user.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Follow</button>
+                        </form>
+                    {% endif %}
+                    {% endif %}
+                
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Bio:</strong> {{ user.bio|default:"No bio provided." }}</p>
+                    <p><strong>Location:</strong> {{ user.location|default:"No location specified." }}</p>
+                    <p><strong>Date of Birth:</strong> {{ user.date_of_birth|date:"F j, Y"|default:"Not specified." }}</p>
+                    <p><strong>Followers:</strong> {{ followers_count }}</p>
+                    <p><strong>Following:</strong> {{ following_count }}</p>
+                </div>
+            </div>
+        </div>
+        {% if user == request.user %}
+            <div class="card-footer text-center">
+                <a href="{% url 'gallery' %}" class="btn btn-light">Gallery</a>
+                <a href="{% url 'profile-edit' pk=user.pk %}" class="btn btn-primary me-2">Edit Profile</a>
+                <a href="{% url 'profile-delete' pk=user.pk %}" class="btn btn-danger">Delete Profile</a>
+            </div>
+        {% endif %}
+    
+    </div>
+    <div class="mt-5">
+        <h2>{{ user.username }}'s Designs</h2>
+        <div class="row">
+            {% for design in user_designs %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="{{ design.image.url }}" class="card-img-top" alt="{{ design.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ design.title }}</h5>
+                            <p class="card-text">{{ design.description|truncatewords:10 }}</p>
+                            <a href="{% url 'design-detail' design.pk %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center">No designs posted yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

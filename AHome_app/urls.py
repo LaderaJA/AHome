@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from .views import HomePageView, DesignListView, DesignDeleteView, DesignDetailView, DesignUpdateView, DesignCreateView, CommentDeleteView, CommentUpdateView, LikeDesignView, FollowUserView, OverlayLogView, camera_filter_view
+from django.contrib.auth.views import LoginView, LogoutView
+from .views import HomePageView, DesignListView, DesignDeleteView, CapturedImageDeleteView, DesignDetailView, CapturedImageGalleryView, DesignUpdateView, DesignCreateView, UnfollowUserView, CommentDeleteView, CommentUpdateView, LikeDesignView, FollowUserView, SaveCapturedImageView, CameraFilterView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -14,8 +15,13 @@ urlpatterns = [
     path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment-edit'),
     path('design/<int:pk>/like/', LikeDesignView.as_view(), name='like-design'),
     path('user/<int:pk>/follow/', FollowUserView.as_view(), name='follow-user'),
-    path('design/<int:pk>/overlay-log/', OverlayLogView.as_view(), name='overlay-log'),
-    path('camera-filter/', camera_filter_view, name='camera-filter'),
+    path('user/<int:pk>/unfollow/', UnfollowUserView.as_view(), name='unfollow-user'),
+    path('camera-filter/', CameraFilterView.as_view(), name='camera-filter'),
+    path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('save-captured-image/', SaveCapturedImageView.as_view(), name='save-captured-image'),
+    path('gallery/', CapturedImageGalleryView.as_view(), name='gallery'),
+    path('gallery/delete/<int:pk>/', CapturedImageDeleteView.as_view(), name='delete-image'),
 ]
 
 if settings.DEBUG:

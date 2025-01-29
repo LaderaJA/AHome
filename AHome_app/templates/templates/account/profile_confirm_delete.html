@@ -1,0 +1,15 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h2>Are you sure you want to delete your profile?</h2>
+        <p>This action cannot be undone.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete Profile</button>
+        </form>
+        <a href="{% url 'profile' pk=request.user.pk %}" class="btn btn-secondary">Cancel</a>
+    </div>
+{% endblock %}
+

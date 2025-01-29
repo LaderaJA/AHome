@@ -1,0 +1,173 @@
+
+#back-to-browsing-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#back-to-browsing-btn:hover {
+    background-color: #5a6268;
+}
+
+#design-container {
+    margin-top: 40px;
+}
+
+#design-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#design-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#design-description {
+    font-size: 1.1rem;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+#design-meta {
+    font-size: 0.9rem;
+    color: #0a0a0a;
+    margin-bottom: 20px;
+}
+
+#like-button {
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+#like-button img {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+#like-button:hover {
+    color: #0056b3;
+}
+
+#edit-delete-buttons {
+    margin-top: 20px;
+}
+
+#edit-button, #delete-button {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+#edit-button {
+    background-color: #007bff;
+}
+
+#edit-button:hover {
+    background-color: #0056b3;
+}
+
+#delete-button {
+    background-color: #dc3545;
+}
+
+#delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Comment Section */
+#comments-container {
+    margin-top: 50px;
+}
+
+#comments-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#comments-list li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+#comment-author {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+#comment-content {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+#comment-actions {
+    margin-top: 5px;
+}
+
+#comment-actions a {
+    font-size: 0.9rem;
+    margin-right: 10px;
+    color: #007bff;
+}
+
+#comment-actions a:hover {
+    color: #0056b3;
+}
+
+#add-comment-form {
+    margin-top: 20px;
+}
+
+#add-comment-form button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-comment-form button:hover {
+    background-color: #0056b3;
+}
+
+#login-prompt {
+    font-size: 0.95rem;
+    margin-top: 20px;
+}
+
+#login-prompt a {
+    color: #007bff;
+}
+
+#login-prompt a:hover {
+    color: #0056b3;
+}
+

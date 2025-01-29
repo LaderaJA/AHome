@@ -1,3 +1,12 @@
+body {
+    background-image: url("{% static 'images/bg.jpg' %}");
+    background-size: cover;       
+    background-position: center; 
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    margin: 0;
+    padding: 0;
+}
 .design-list {
     display: flex;
     flex-wrap: wrap;
@@ -15,4 +24,8 @@
     object-fit: cover; 
     border-radius: 8px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.form-select{
+    max-width: 20%;
 }
